@@ -19,7 +19,8 @@ public class User {
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference // Evita a recursão infinita aqui
     private List<Reserva> reservas;
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)

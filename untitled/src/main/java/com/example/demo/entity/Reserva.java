@@ -12,7 +12,7 @@ public class Reserva {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
     @ManyToOne

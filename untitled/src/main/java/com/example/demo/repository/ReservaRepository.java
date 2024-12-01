@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     // Buscar reservas por ID do usuário
-    List<Reserva> findByUsuarioId(Long usuarioId);
+    List<Reserva> findByUser_Id(Long userId);
 
     // Buscar reservas por ID do local esportivo
     List<Reserva> findByLocalEsportesId(Long localEsportesId);

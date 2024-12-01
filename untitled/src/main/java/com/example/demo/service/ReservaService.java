@@ -35,8 +35,8 @@ public class ReservaService {
     }
 
     // Buscar reservas por ID do usuário
-    public List<Reserva> findByUsuarioId(Long usuarioId) {
-        return reservaRepository.findByUsuarioId(usuarioId);
+    public List<Reserva> findByUsuarioId(Long userId) {
+        return reservaRepository.findByUser_Id(userId);
     }
 
     // Buscar reservas por ID do local esportivo

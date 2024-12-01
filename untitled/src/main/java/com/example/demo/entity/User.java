@@ -21,7 +21,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reserva> reservas;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private Set<LocalEsportes> locaisEsportes = new HashSet<>();
 
     // Definindo as constantes de papel de usuário

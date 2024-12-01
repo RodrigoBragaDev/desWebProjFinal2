@@ -15,7 +15,7 @@ public class LocalEsportes {
     private String endereco;
 
     @ManyToOne
-    @JoinColumn(name = "dono_id")
+    @JoinColumn(name = "id_dono", nullable = false)
     private User dono;
 
     @OneToMany(mappedBy = "localEsportes", cascade = CascadeType.ALL)

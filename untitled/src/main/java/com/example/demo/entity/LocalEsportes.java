@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class LocalEsportes {
 
     @ManyToOne
     @JoinColumn(name = "id_dono", nullable = false)
+    @JsonBackReference
     private User dono;
 
     @OneToMany(mappedBy = "localEsportes", cascade = CascadeType.ALL)

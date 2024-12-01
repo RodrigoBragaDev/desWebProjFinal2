@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,7 @@ public class User {
     private List<Reserva> reservas;
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<LocalEsportes> locaisEsportes = new HashSet<>();
 
     // Definindo as constantes de papel de usuário

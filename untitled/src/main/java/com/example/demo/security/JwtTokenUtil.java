@@ -17,5 +17,5 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    // Método para validar o token pode ser adicionado aqui, se necessário
+    // Metodo para validar o token pode ser adicionado aqui, se necessário
 }

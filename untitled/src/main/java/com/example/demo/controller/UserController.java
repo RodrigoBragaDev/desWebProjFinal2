@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import com.example.demo.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,21 +32,22 @@ public class UserController {
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    // Criar um novo usuário
-    //@PostMapping
-    //ublic ResponseEntity<User> createUser(@RequestBody User user) {
-    //    User newUser = userService.saveUser(user);
-    //    return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    //}
 
+    // Criar um novo usuário e gerar um token JWT
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody User user) {
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Erro: A senha não pode estar vazia.");
         }
         try {
+            // Salva o usuário no banco de dados
             User savedUser = userService.saveUser(user);
-            return ResponseEntity.ok(savedUser);
+
+            // Gera o token JWT para o usuário criado
+            String token = JwtTokenUtil.generateToken(savedUser.getEmail());
+
+            // Retorna o usuário criado junto com o token JWT
+            return ResponseEntity.ok().body(new UserResponse(savedUser, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o usuário.");
         }
@@ -73,7 +75,31 @@ public class UserController {
     public List<User> getUsersWithReservations() {
         return userService.findUsersWithReservations();
     }
+
+    // Classe auxiliar para a resposta com usuário e token JWT
+    public static class UserResponse {
+        private User user;
+        private String token;
+
+        public UserResponse(User user, String token) {
+            this.user = user;
+            this.token = token;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+    }
 }
-
-
-

@@ -6,6 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for demo" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/sample/sample-annotation-processor/1.2.3/sample-annotation-processor-1.2.3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/sample/sample-annotation-processor/1.2.3/sample-annotation-processor-1.2.3.jar" />
+        </processorPath>
         <module name="demo" />
       </profile>
     </annotationProcessing>

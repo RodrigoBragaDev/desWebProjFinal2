@@ -38,10 +38,17 @@ public class UserController {
     //    return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     //}
 
-    // Criar um novo usuário
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Erro: A senha não pode estar vazia.");
+        }
+        try {
+            User savedUser = userService.saveUser(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o usuário.");
+        }
     }
 
     // Atualizar um usuário existente

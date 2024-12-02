@@ -48,4 +48,8 @@ public class UserService {
     public List<User> findUsersWithReservations() {
         return userRepository.findUsersWithReservations();
     }
+
+    public User findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
 }

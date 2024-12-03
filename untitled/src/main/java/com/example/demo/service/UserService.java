@@ -39,6 +39,12 @@ public class UserService {
                 .map(user -> {
                     user.setName(updateUser.getName());
                     user.setEmail(updateUser.getEmail());
+
+                    // Atualizar a senha, se fornecida
+                    if (updateUser.getPassword() != null && !updateUser.getPassword().isEmpty()) {
+                        user.setPassword(updateUser.getPassword()); // Apenas atualize se a senha não for nula ou vazia
+                    }
+
                     return userRepository.save(user);
                 }).orElseThrow(() -> new RuntimeException("User not found!"));
     }

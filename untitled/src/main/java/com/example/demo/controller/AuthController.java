@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -30,10 +31,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos");
         }
 
-        return ResponseEntity.ok().body(Map.of(
-                "message", "Login realizado com sucesso",
-                "userId", user.getId(),
-                "role", user.getRole()
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Login realizado com sucesso");
+        response.put("userId", user.getId());
+        response.put("role", user.getRole());
+        response.put("name", user.getName());
+        return ResponseEntity.ok().body(response);
     }
 }

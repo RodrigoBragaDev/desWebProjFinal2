@@ -24,8 +24,24 @@ public class LocalEsportesController {
 
     // Buscar todos os locais esportivos
     @GetMapping
-    public List<LocalEsportes> getAllLocalEsportes() {
-        return localEsportesService.findAllLocalEsportes();
+    public ResponseEntity<List<LocalEsportes>> getAllLocalEsportes() {
+        List<LocalEsportes> locais = localEsportesService.findAllLocalEsportes();
+        
+        if (locais.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        
+        // Validação dos campos obrigatórios
+        for (LocalEsportes local : locais) {
+            if (local.getNome() == null || local.getEndereco() == null) {
+                // Log para debug
+                System.out.println("Local com dados incompletos: ID=" + local.getId() + 
+                                 ", Nome=" + local.getNome() + 
+                                 ", Endereco=" + local.getEndereco());
+            }
+        }
+        
+        return new ResponseEntity<>(locais, HttpStatus.OK);
     }
 
     // Buscar um local esportivo pelo ID
@@ -38,8 +54,15 @@ public class LocalEsportesController {
 
     // Criar um novo local esportivo
     @PostMapping
-    public LocalEsportes createLocalEsportes(@RequestBody LocalEsportes localEsportes) {
-        return localEsportesService.saveLocalEsportes(localEsportes);
+    public ResponseEntity<LocalEsportes> createLocalEsportes(@RequestBody LocalEsportes localEsportes) {
+        // Validação dos campos obrigatórios
+        if (localEsportes.getNome() == null || localEsportes.getNome().trim().isEmpty() ||
+            localEsportes.getEndereco() == null || localEsportes.getEndereco().trim().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        LocalEsportes savedLocal = localEsportesService.saveLocalEsportes(localEsportes);
+        return new ResponseEntity<>(savedLocal, HttpStatus.CREATED);
     }
 
     // Deletar um local esportivo pelo ID

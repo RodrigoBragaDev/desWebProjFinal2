@@ -18,6 +18,10 @@ public class LocalEsportesController {
     @Autowired
     private LocalEsportesService localEsportesService;
 
+    public LocalEsportesController(LocalEsportesService localEsportesService) {
+        this.localEsportesService = localEsportesService;
+    }
+
     // Buscar todos os locais esportivos
     @GetMapping
     public List<LocalEsportes> getAllLocalEsportes() {

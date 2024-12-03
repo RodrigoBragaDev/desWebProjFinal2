@@ -26,6 +26,10 @@ public class UserService {
 
     // Criar ou atualizar um usuário
     public User saveUser(User user) {
+        // Verifica se a role do usuário é null e define como "usuário"
+        if (user.getRole() == null) {
+            user.setRole("USUARIO");
+        }
         return userRepository.save(user);
     }
 

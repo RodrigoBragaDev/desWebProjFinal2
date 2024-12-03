@@ -13,7 +13,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/sample/sample-annotation-processor/1.2.3/sample-annotation-processor-1.2.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/sample/sample-annotation-processor/1.2.3/sample-annotation-processor-1.2.3.jar" />
         </processorPath>
         <module name="demo" />
       </profile>

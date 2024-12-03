@@ -50,6 +50,16 @@ public class ReservaController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva updatedReserva) {
+        try {
+            Reserva reserva = reservaService.updateReserva(id, updatedReserva);
+            return new ResponseEntity<>(reserva, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     // Buscar reservas por ID do usuário
     @GetMapping("/usuario/{usuarioId}")
     public List<ReservaDTO> getReservasByUsuarioId(@PathVariable Long usuarioId) {

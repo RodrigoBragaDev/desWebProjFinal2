@@ -34,6 +34,28 @@ public class ReservaService {
         reservaRepository.deleteById(id);
     }
 
+    public Reserva updateReserva(Long id, Reserva updatedReserva) {
+        // Verificar se a reserva existe
+        Reserva existingReserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reserva não encontrada"));
+
+        // Atualizar os campos se eles forem fornecidos
+        if (updatedReserva.getDataHora() != null) {
+            existingReserva.setDataHora(updatedReserva.getDataHora());
+        }
+        if (updatedReserva.getLocalEsportes() != null) {
+            existingReserva.setLocalEsportes(updatedReserva.getLocalEsportes());
+        }
+        if (updatedReserva.getUser() != null) {
+            existingReserva.setUser(updatedReserva.getUser());
+        }
+        if (updatedReserva.getStatus() != null) {
+            existingReserva.setStatus(updatedReserva.getStatus());
+        }
+
+        return reservaRepository.save(existingReserva);
+    }
+
     // Buscar reservas por ID do usuário
     public List<Reserva> findByUsuarioId(Long userId) {
         return reservaRepository.findByUser_Id(userId);

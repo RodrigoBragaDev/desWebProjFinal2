@@ -72,6 +72,16 @@ public class LocalEsportesController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<LocalEsportes> updateLocalEsportes(@PathVariable Long id, @RequestBody LocalEsportes updatedLocalEsportes) {
+        try {
+            LocalEsportes updatedLocal = localEsportesService.updateLocalEsportes(id, updatedLocalEsportes);
+            return new ResponseEntity<>(updatedLocal, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     // Buscar locais esportivos por ID do dono
     @GetMapping("/dono/{donoId}")
     public List<LocalEsportes> getLocalEsportesByDonoId(@PathVariable Long donoId) {

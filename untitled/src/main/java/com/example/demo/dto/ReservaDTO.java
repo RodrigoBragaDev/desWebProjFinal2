@@ -3,6 +3,8 @@ package com.example.demo.dto;
 import com.example.demo.entity.LocalEsportes;
 import com.example.demo.entity.Reserva;
 import com.example.demo.entity.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 
 public class ReservaDTO {
 
@@ -11,6 +13,9 @@ public class ReservaDTO {
     private String localEsportesNome;
     private Long userId;
     private String userName;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // Formatação do campo dataHora
+    private LocalDateTime dataHora;
 
     // Construtor que converte uma entidade Reserva para DTO
     public ReservaDTO(Reserva reserva) {
@@ -27,6 +32,8 @@ public class ReservaDTO {
             this.userId = user.getId();
             this.userName = user.getName();
         }
+
+        this.dataHora = reserva.getDataHora();  // Adicionando a dataHora ao DTO
     }
 
     // Getters e Setters
@@ -68,5 +75,13 @@ public class ReservaDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 }

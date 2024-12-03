@@ -50,13 +50,14 @@ public class ReservaController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // Atualizar uma reserva pelo ID
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva updatedReserva) {
+    public ResponseEntity<ReservaDTO> updateReserva(@PathVariable Long id, @RequestBody Reserva updatedReserva) {
         try {
             Reserva reserva = reservaService.updateReserva(id, updatedReserva);
-            return new ResponseEntity<>(reserva, HttpStatus.OK);
+            return new ResponseEntity<>(new ReservaDTO(reserva), HttpStatus.OK);  // Retornando DTO
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -65,7 +66,7 @@ public class ReservaController {
     public List<ReservaDTO> getReservasByUsuarioId(@PathVariable Long usuarioId) {
         return reservaService.findByUsuarioId(usuarioId)
                 .stream()
-                .map(ReservaDTO::new)
+                .map(ReservaDTO::new)  // Convertendo para DTO
                 .collect(Collectors.toList());
     }
 
@@ -74,11 +75,7 @@ public class ReservaController {
     public List<ReservaDTO> getReservasByLocalEsportesId(@PathVariable Long localEsportesId) {
         return reservaService.findByLocalEsportesId(localEsportesId)
                 .stream()
-                .map(ReservaDTO::new)
+                .map(ReservaDTO::new)  // Convertendo para DTO
                 .collect(Collectors.toList());
     }
 }
-
-
-
-
